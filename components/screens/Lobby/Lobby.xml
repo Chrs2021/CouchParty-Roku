@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="Lobby" extends="Group" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<interface>
+	  <field id="playerListContent" type="node" alias="playerList.content" onChange="OnChangeContent"/>
+      </interface>
+	<script type="text/brightscript" uri="pkg:/components/screens/Lobby/Lobby.brs" />
+	
+<children>
+
+        <Group 
+        id="uiView">
+        	<Poster
+        		id="qrCode"
+        		translation="[550,200]"
+        		loadSync="true"
+        		width="150"
+            	height="150" 
+        	/>
+			<LabelList
+				id="playerList"
+				translation="[450,450]"
+				height="250"
+				width="450"
+				title="Player List"
+			
+				/>
+		
+		</Group>
+                
+        <Group
+            id="HomeSceneOverhang"
+            
+            > <!-- -> Overhang -->
+            <Poster
+                translation="[79, 36]"
+                uri="pkg:/images/overhangBLogo.png"
+                width="156"
+                height="49" />
+        </Group> <!-- <- Overhang -->
+           <Animation
+            id="testAnimation"
+            duration="5"
+            repeat="true"
+            control="start"
+            easeFunction="linear">
+            <Vector2DFieldInterpolator
+                id = "testVector2D"
+                key="[0.0, 0.5, 1.0]"
+                keyValue="[ [450.0, 450.0], [470.0, 450.0], [450.0, 450.0] ]"
+                fieldToInterp="playerList.translation"   />
+
+        </Animation>
+</children>
+</component>

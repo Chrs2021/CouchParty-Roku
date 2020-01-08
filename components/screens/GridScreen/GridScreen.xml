@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********-->
+
+<!-- node that renders Grid Screen 
+    handles bookmark buttons
+    handles start of video playback
+ -->
+
+<component name="GridScreen" extends="Group" initialFocus="RowList"  xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+    <interface>
+        <!-- input -->
+        <!-- Grid Content Node -->
+        <field id="content" type="node" alias="RowList.content" onChange="onContentChange"/>
+        
+        <!-- Row item selection handler -->
+        <field id="ItemSelected" type="intarray" alwaysnotify="true" alias="RowList.ItemSelected"/>
+        
+        <!-- Row item focused handler -->
+        <field id="itemFocused" type="intarray" alias="RowList.ItemFocused" onChange="OnItemFocused"/>
+
+        <!-- Interface to focused item (Content Node) -->
+        <field id="focusedContent"  alwaysnotify="true" type="Integer" />
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
+        
+    <children>
+        <FadingBackground
+            id="Background"
+            width="1280"
+            height="720"
+            color="0xAAAAAA"
+            ShadeOpacity="0.5"/>
+            
+        <LabelList
+            id="RowList"
+            translation="[500, 372]"
+            itemSize="[250, 60]"
+            numRows="6"
+            itemSpacing="[10, 0]"/>
+            
+    </children>
+</component>

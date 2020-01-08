@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<!--********** Copyright 2016 Roku Corp.  All Rights Reserved. **********--> 
+
+<!-- main node which handles home screen children -->
+<component name="HomeScene" extends="Scene"  xsi:noNamespaceSchemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+
+    <interface>
+        <!-- Specifies the content for the GridPannel -->
+        <field id="gridContent" type="node" alias="GridScreen.content" onChange="OnChangeContent"/>
+        <field id="ItemSelected" type="Integer" alwaysnotify="true" alias="GridScreen.ItemSelected" onChange="PlayVideoFromGrid"/>
+    </interface>
+    
+    <!-- main handler -->
+    <script type="text/brightscript" uri="pkg:/components/screens/HomeScene/HomeScene.brs" />
+    
+    <children>
+
+        <GridScreen
+            id="GridScreen"
+            visible="true"
+            translation="[0,0]" />
+    
+        <Group
+            id="HomeSceneOverhang"
+            
+            > <!-- -> Overhang -->
+            <Poster
+                translation="[79, 36]"
+                uri="pkg:/images/overhangBLogo.png"
+                width="156"
+                height="49" />
+        </Group> <!-- <- Overhang -->
+    </children> 
+</component>
