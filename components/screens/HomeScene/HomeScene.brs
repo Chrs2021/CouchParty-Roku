@@ -68,8 +68,8 @@ Sub HideScreen(node as Object)
     if node = invalid OR (m.screenStack.peek() <> invalid AND m.screenStack.peek().isSameNode(node)) 
         last = m.screenStack.pop()
         last.visible = false
-        
         prev = m.screenStack.peek()
+        m.top.removeChild(last)
         if prev <> invalid
             prev.visible = true
             prev.setFocus(true)

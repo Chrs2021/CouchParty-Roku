@@ -6,6 +6,7 @@ function init() as void
     m.ws.open = "ws://192.168.0.58:8080/game/create"
     m.qrCode = m.top.findNode("qrCode")
     m.playerList = m.top.findNode("playerList")
+    m.timerLabel = m.top.findNode("timerLabel")
 end function
 
 function on_open(event as object) as void
@@ -25,18 +26,44 @@ function on_message(event as object) as void
         roomCodeData.WriteFile(uri)
         m.qrCode.uri = uri
      else if  Mid(event.getData().message, 3,3) = "pys"
-        RowItems = createObject("RoSGNode","ContentNode")
+        rowItems = createObject("RoSGNode","ContentNode")
+        print event.getData().message
         players = ParseJson(event.getData().message)
         for each player in players.pys
-             playerItem = createObject("RoSGNode","ContentNode")
-             playerItem.Title = player.displayName
-             RowItems.appendChild(playerItem)
+             playeritem       =  createObject("RoSGNode","ContentNode")
+             playeritem.addField("isKing", "boolean", true)
+             playeritem.Title = player.displayName
+             playeritem.id = player.id
+             playeritem.isKing = player.isKing
+             playeritem.Description = player.avatar
+             rowItems.appendChild(playeritem)
         end for
-        m.playerList.content = RowItems
+         m.playerList.content = rowItems
+     else if Mid(event.getData().message, 3,9) = "remaining"
+        timer = ParseJson(event.getData().message)
+        m.timerLabel.text = "Timer: " + str(timer.remaining) + "/" + str(timer.total)
+     else if Left(event.getData().message, 9) = "gamestage"
+        print "game state changed to: " + Right(event.getData().message, 2)
+        changeGameState(Right(event.getData().message, 2))
      else
-        print Mid(event.getData().message, 3,3)
+        print Left(event.getData().message, 8)
         print event.getData().message
     end if
+end function
+
+function changeGameState(state)
+  gameMode = val(state, 10)
+  print "gamemode: " + str(gameMode)
+  if gameMode = -1
+    m.timerLabel.visible = false
+    m.qrCode.visible = true
+  else if gameMode = 0
+      m.timerLabel.visible = false
+  else if gameMode = 1
+      m.qrCode.visible = false
+      m.timerLabel.visible = true
+  else if gameMode = 2
+  end if
 end function
 
 function onKeyEvent(key, press)

@@ -27,13 +27,7 @@
     <script type="text/brightscript" uri="pkg:/components/screens/GridScreen/GridScreen.brs" />
         
     <children>
-        <FadingBackground
-            id="Background"
-            width="1280"
-            height="720"
-            color="0xAAAAAA"
-            ShadeOpacity="0.5"/>
-            
+   
         <LabelList
             id="RowList"
             translation="[500, 372]"

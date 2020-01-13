@@ -587,7 +587,9 @@ function WebSocketClient() as object
             return
             ' Ping
         else if opcode = m.OPCODE.PING
-            m.send("", m.OPCODE.PONG)
+            frame_print = "received ping, Sending Pong!"
+            m.send(payload, m.OPCODE.PONG)
+            m._logger.printl(m._logger.VERBOSE, frame_print)
             return
             ' Text
         else if opcode = m.OPCODE.TEXT

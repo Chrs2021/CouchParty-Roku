@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="Lobby" extends="Group" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
-	<interface>
-	  <field id="playerListContent" type="node" alias="playerList.content" onChange="OnChangeContent"/>
-      </interface>
+
 	<script type="text/brightscript" uri="pkg:/components/screens/Lobby/Lobby.brs" />
 	
 <children>
@@ -16,14 +14,23 @@
         		width="150"
             	height="150" 
         	/>
-			<LabelList
+        	<SimpleLabel
+        		id = "timerLabel"
+        		text = "Timer:"
+        		translation = "[1050 ,36]"
+        		fontSize = "32"
+        		visible = "false" 
+        	/>
+			<MarkupList
 				id="playerList"
-				translation="[450,450]"
-				height="250"
-				width="450"
-				title="Player List"
-			
-				/>
+				translation="[136,410]"
+				itemComponentName = "PlayerItem"
+				numColumns = "3"
+				numRows = "3"
+				itemSpacing = "[ 0, 5 ]" 
+				itemSize = "[ 320, 72 ]" 
+      			drawFocusFeedback = "false" 
+			/>
 		
 		</Group>
                 
@@ -39,14 +46,14 @@
         </Group> <!-- <- Overhang -->
            <Animation
             id="testAnimation"
-            duration="5"
+            duration="10"
             repeat="true"
             control="start"
             easeFunction="linear">
             <Vector2DFieldInterpolator
                 id = "testVector2D"
                 key="[0.0, 0.5, 1.0]"
-                keyValue="[ [450.0, 450.0], [470.0, 450.0], [450.0, 450.0] ]"
+                keyValue="[ [115.0, 410.0], [136.0, 410.0]]"
                 fieldToInterp="playerList.translation"   />
 
         </Animation>

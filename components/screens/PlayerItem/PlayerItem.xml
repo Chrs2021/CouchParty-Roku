@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="PlayerItem" extends="MaskGroup" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<interface>
+	 	<field id = "itemContent" type = "node" onChange = "showcontent" />
+	 	<field id = "currentKing" type = "string" onChange = "weAreTheKaptainNow"/>
+	 </interface>
+	<script type="text/brightscript" uri="pkg:/components/screens/PlayerItem/PlayerItem.brs" />
+	<children>
+		<LayoutGroup
+			id="itemDetails"
+			layoutdirection = "Horiz"
+    		horizalignment ="left"
+    		vertalignment = "top"
+    		additemspacingafterchild = "true"  
+    		itemspacings = "[5,5]">
+   		<Rectangle
+  			id="kingIndicator"
+  			color="0x55F2F055"
+  			width="64"
+  			height="64"
+  			visible="false" />
+		<Poster id="playerAvatar" 
+				width="64" height="64"
+		/>
+		<Label id="playerName"
+		translation = "[ 64, 0 ]"/>
+		</LayoutGroup>
+		<Rectangle
+  			id="testRectangle"
+  			color="0x880088FF"
+  			width="48"
+  			height="48" />
+	</children>
+</component>
