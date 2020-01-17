@@ -25,10 +25,11 @@
             
             > <!-- -> Overhang -->
             <Poster
-                translation="[79, 36]"
+            	id="titleScreen"
+                translation="[432, 196]"
                 uri="pkg:/images/overhangBLogo.png"
-                width="156"
-                height="49" />
+                width="430"
+                height="57" />
         </Group> <!-- <- Overhang -->
     </children> 
 </component>

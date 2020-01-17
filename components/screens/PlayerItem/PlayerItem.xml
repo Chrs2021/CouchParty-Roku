@@ -6,29 +6,27 @@
 	 </interface>
 	<script type="text/brightscript" uri="pkg:/components/screens/PlayerItem/PlayerItem.brs" />
 	<children>
-		<LayoutGroup
+	   	<LayoutGroup
 			id="itemDetails"
 			layoutdirection = "Horiz"
     		horizalignment ="left"
     		vertalignment = "top"
     		additemspacingafterchild = "true"  
     		itemspacings = "[5,5]">
-   		<Rectangle
-  			id="kingIndicator"
-  			color="0x55F2F055"
-  			width="64"
-  			height="64"
-  			visible="false" />
-		<Poster id="playerAvatar" 
-				width="64" height="64"
-		/>
-		<Label id="playerName"
-		translation = "[ 64, 0 ]"/>
+  		<Rectangle
+  			id="testRectangle"
+  			color="0xFF0505FF"
+  			width="75"
+  			height="75" />
+		<Label id="playerName" />
 		</LayoutGroup>
 		<Rectangle
-  			id="testRectangle"
-  			color="0x880088FF"
-  			width="48"
-  			height="48" />
+  			id="kingIndicator"
+  			color="0x000088AA"
+  			translation="[0, 0]"
+  			width="75"
+  			height="22"
+  			visible="false" />
+		
 	</children>
 </component>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="PlayerItem" extends="MaskGroup" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+	<interface>
+	 	<field id = "itemContent" type = "node" onChange = "showcontent" />
+	 </interface>
+	<script type="text/brightscript" uri="pkg:/components/screens/PlayerEntry/PlayerEntry.brs" />
+	<children>
+	
+	 <Animation
+            id="bgAnimation"
+            duration="0.250"
+            repeat="false"
+            control="start"
+            easeFunction="linear">
+            <FloatFieldInterpolator
+                id = "testVector2D"
+                key="[0.0, 0.5, 1.0]"
+                keyValue="[ 0, 0.5, 1]"
+                fieldToInterp="itemDetails.opacity"   />
+			</Animation>
+		<LayoutGroup
+			id="itemDetails"
+			layoutdirection = "Horiz"
+    		horizalignment ="left"
+    		vertalignment = "center"
+    		additemspacingafterchild = "true"  
+    		itemspacings = "[5,5]">
+		<ScrollingLabel id="playerAnswer"
+			width = "160"
+			translation = "[ 0, 0 ]"/>
+		</LayoutGroup>
+	</children>
+</component>

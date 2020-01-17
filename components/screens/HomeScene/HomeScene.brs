@@ -8,6 +8,7 @@ Function Init()
     ? "[HomeScene] Init"
     m.screenStack = []
     'main grid screen node
+    m.TitleText = m.top.findNode("titleScreen")
     m.GridScreen = m.top.findNode("GridScreen")
     
     ShowScreen(m.GridScreen)
@@ -16,10 +17,9 @@ End Function
 ' Row item selected handler
 Sub PlayVideoFromGrid()
     ? "[HomeScene] OnItemSelected" 
- 
     selectedItem = m.GridScreen.ItemSelected
-    print selectedItem
     if selectedItem = 0
+     m.TitleText.visible = false
      m.lobby = CreateObject("roSGNode", "Lobby")
      m.lobby.id="Lobby"
      m.top.appendChild(m.lobby)
@@ -56,6 +56,7 @@ Sub ShowScreen(node)
         prev.visible = false
     end if
     node.visible = true
+
     node.setFocus(true)
     m.screenStack.push(node)
 End Sub
@@ -68,6 +69,9 @@ Sub HideScreen(node as Object)
     if node = invalid OR (m.screenStack.peek() <> invalid AND m.screenStack.peek().isSameNode(node)) 
         last = m.screenStack.pop()
         last.visible = false
+        if last.id = "Lobby" 
+            m.TitleText.visible = true
+        end if
         prev = m.screenStack.peek()
         m.top.removeChild(last)
         if prev <> invalid

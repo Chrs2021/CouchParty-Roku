@@ -1,61 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="Lobby" extends="Group" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
-
+	<interface>
+		<field id="ChosenWord" type="string" onChange="wordchosen"/>
+	</interface>
 	<script type="text/brightscript" uri="pkg:/components/screens/Lobby/Lobby.brs" />
 	
 <children>
 
         <Group 
         id="uiView">
+        <Rectangle
+        	id="background"
+        	color="0x3F3FFF3F"
+        	opacity="0.0"
+        	width="1280"
+        	height="720"
+        />
+ 			<Label
+ 				id="StatusText"
+ 				fontSize = "96"
+ 				translation="[350,200]"
+ 			/>
         	<Poster
         		id="qrCode"
         		translation="[550,200]"
         		loadSync="true"
-        		width="150"
-            	height="150" 
+        		width="175"
+            	height="175" 
         	/>
-        	<SimpleLabel
+        	<Label
         		id = "timerLabel"
         		text = "Timer:"
-        		translation = "[1050 ,36]"
-        		fontSize = "32"
-        		visible = "false" 
-        	/>
+        		translation = "[850 ,42]"
+        		visible = "false" >
+ 			</Label>
 			<MarkupList
 				id="playerList"
 				translation="[136,410]"
 				itemComponentName = "PlayerItem"
 				numColumns = "3"
 				numRows = "3"
-				itemSpacing = "[ 0, 5 ]" 
-				itemSize = "[ 320, 72 ]" 
+				itemSpacing = "[8, 8 ]" 
+				itemSize = "[ 320, 96 ]" 
       			drawFocusFeedback = "false" 
 			/>
-		
+			<MarkupList
+				id="playerEntriesList"
+				translation="[136,410]"
+				itemComponentName = "PlayerEntry"
+				numColumns = "3"
+				numRows = "3"
+				itemSpacing = "[8, 8 ]" 
+				itemSize = "[ 320, 96 ]" 
+      			drawFocusFeedback = "false" 
+      			visible = "false"
+			/>
 		</Group>
                 
         <Group
             id="HomeSceneOverhang"
             
             > <!-- -> Overhang -->
-            <Poster
+           <Poster
                 translation="[79, 36]"
                 uri="pkg:/images/overhangBLogo.png"
-                width="156"
-                height="49" />
+                width="430"
+                height="57" />
         </Group> <!-- <- Overhang -->
            <Animation
-            id="testAnimation"
-            duration="10"
-            repeat="true"
+            id="bgAnimation"
+            duration="0.35"
+            repeat="false"
             control="start"
             easeFunction="linear">
-            <Vector2DFieldInterpolator
-                id = "testVector2D"
-                key="[0.0, 0.5, 1.0]"
-                keyValue="[ [115.0, 410.0], [136.0, 410.0]]"
-                fieldToInterp="playerList.translation"   />
-
-        </Animation>
+            <FloatFieldInterpolator
+                key="[0.0, 1.0]"
+                keyValue="[ 0, 1]"
+                fieldToInterp="background.opacity"   />
+			</Animation>
+			
+			<SequentialAnimation id = "flipSeqAnim" >
+			<Animation
+				id="hideAnim"
+            	duration="0.4"
+            	easeFunction="linear">
+            <FloatFieldInterpolator
+            	id="hideInterPol"
+                key="[0.0, 1.0]"
+                keyValue="[ 1, 0]"/>
+			</Animation>
+			<Animation
+            	id="showAnim"
+            	duration="0.40"
+            	easeFunction="linear">
+            	<FloatFieldInterpolator
+            		id="showInterPol"
+                	key="[0.0, 1.0]"
+                	keyValue="[ 0, 1]" 
+                	/>
+			</Animation>
+			</SequentialAnimation>
+			<Timer id="countDownTimer"
+				duration = "1"
+				repeat = "true"
+			/>
 </children>
 </component>
