@@ -18,8 +18,10 @@
         />
  			<Label
  				id="StatusText"
- 				fontSize = "96"
- 				translation="[350,200]"
+ 				translation="[320,200]"
+ 				wrap = "true"
+ 				width = "640"
+             	horizAlign = "center" 
  			/>
         	<Poster
         		id="qrCode"
@@ -51,9 +53,9 @@
 				numColumns = "3"
 				numRows = "3"
 				itemSpacing = "[8, 8 ]" 
-				itemSize = "[ 320, 96 ]" 
+				itemSize = "[ 320, 50 ]" 
       			drawFocusFeedback = "false" 
-      			visible = "false"
+      			opacity = "0"
 			/>
 		</Group>
                 

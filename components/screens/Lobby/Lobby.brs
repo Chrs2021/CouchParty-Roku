@@ -19,7 +19,6 @@ function on_open(event as object) as void
 end function
 
 function on_close(event as object ) 
-    print "it died"
 
 end function
 
@@ -32,6 +31,8 @@ function on_message(event as object) as void
         m.qrCode.uri = uri
      else if  Mid(event.getData().message, 3,3) = "pys"
         updatePlayerList(event.getData().message)
+     else if  Mid(event.getData().message, 3,3) = "aws"
+        updateAnswerList(event.getData().message)    
      else if Mid(event.getData().message, 3,9) = "remaining"
         handleTimer(event.getData().message)
      else if Left(event.getData().message, 9) = "gamestage"
@@ -41,8 +42,6 @@ function on_message(event as object) as void
         m.top.ChosenWord = Right(event.getData().message, (len(event.getData().message) - 8))
      else if event.getData().message = "!rndStart"
         m.statusText.text = "Round is starting!"
-        centerPos = "[" + str(640 - (len(m.statusText.text) * 6)) + ", 250.0]"
-        m.ws.send = ["rndStart"]
      else
         print Left(event.getData().message, 8)
         print event.getData().message
@@ -51,6 +50,7 @@ end function
 
 function handleTimer(tData) 
         timer = ParseJson(tData)
+        m.timerLabel.visible = true
         if timer.remaining <= 15
             m.timerLabel.Color = "0xCF1010"
             m.timerLabel.font.size = "72"
@@ -71,8 +71,6 @@ function updatePlayerList(playerData)
              playeritem.id = player.id
              if player.isKing 
                 m.statusText.text = player.displayName  + " is choosing the next word!"
-                centerPos = "[" + str(640 - (len(m.statusText.text) * 6)) + ", 250.0]"
-                m.statusText.translation = centerPos
              end if
              playeritem.isKing = player.isKing
              playeritem.Description = player.avatar
@@ -81,8 +79,20 @@ function updatePlayerList(playerData)
          m.playerList.content = rowItems
 end function
 
+function updateAnswerList(answerData)
+        rowItems = createObject("RoSGNode","ContentNode")
+        answers = ParseJson(answerData)
+        for each answer in answers.aws
+             answerItem       =  createObject("RoSGNode","ContentNode")
+             answerItem.Title = answer
+             rowItems.appendChild(answerItem)
+        end for
+         m.playerEntry.content = rowItems
+end function
+
 function changeGameState(state)
   gameMode = val(state, 10)
+  m.statusText.Font.size = 24
   print "gamemode: " + str(gameMode)
   if gameMode = -1
     m.timerLabel.visible = false
@@ -97,6 +107,9 @@ function changeGameState(state)
       m.statusText.visible = true
       m.timerLabel.visible = true
   else if gameMode = 2
+  else if gameMode = 3
+      m.timerLabel.visible = false
+      m.statusText.Text = "And Answers are in!" + Chr(10) + "Awaiting for a winner to be chosen"
   end if
   if gameMode < 1 and m.playerList.opacity = 0
           fadeSwap("playerEntriesList.opacity", "playerList.opacity")
@@ -113,10 +126,12 @@ end function
 function getHype()
     if m.roundCount = 0
         m.ws.send = ["rndStart"]
-        m.statusText.Text = "Waiting for answers"
+        m.statusText.Font.size = 42        
+        m.statusText.Text = m.top.ChosenWord + Chr(10) + "Waiting for answers!"
         m.timerCountDown.control = "stop"
     else
-        m.statusText.Font.size = 42
+        m.timerLabel.visible = false
+        m.statusText.Font.size = 72
         m.statusText.Text = m.roundCount
         m.roundCount -= 1
     end if
