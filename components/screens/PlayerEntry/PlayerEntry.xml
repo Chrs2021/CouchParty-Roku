@@ -25,5 +25,9 @@
   			height = "0"
 			/>
 		</LayoutGroup>
+		<SoundEffect
+			id = "answerSFX"
+			uri="pkg:/sounds/ding.wav"
+		/>
 	</children>
 </component>

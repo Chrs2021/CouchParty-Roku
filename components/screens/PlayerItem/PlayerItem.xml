@@ -13,20 +13,22 @@
     		vertalignment = "top"
     		additemspacingafterchild = "true"  
     		itemspacings = "[5,5]">
-  		<Rectangle
-  			id="testRectangle"
-  			color="0xFF0505FF"
+  		<poster
+  			id="playerAvatar"
   			width="75"
   			height="75" />
 		<Label id="playerName" />
 		</LayoutGroup>
-		<Rectangle
+		<poster
   			id="kingIndicator"
-  			color="0x000088AA"
+  			uri="pkg:/images/crown.png"
   			translation="[0, 0]"
   			width="75"
   			height="22"
   			visible="false" />
-		
+		<SoundEffect
+			id = "arrived"
+			uri="pkg:/sounds/enter.wav"
+		/>
 	</children>
 </component>

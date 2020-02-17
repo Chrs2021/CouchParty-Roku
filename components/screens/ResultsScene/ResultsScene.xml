@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="ResultsScene" extends="Group" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
+ 	<interface>
+ 		<field id = "itemContent" type = "node" onChange = "showcontent" />
+	</interface>
+	<script type="text/brightscript" uri="pkg:/components/screens/ResultsScene/ResultsScene.brs" />
+	<children>
+	      
+         <Group
+            id="MainUiElements"
+            >
+			<rectangle
+				id="background"
+  				color="0x5591BEFF"
+  				width="1280"
+  				height="720"
+			/>
+
+			<Label
+				id="winningText"
+				text="This rounds winner is"
+				translation="[515, 158]"/>
+			
+			<Label
+				id="playerName"
+				width = "600"
+				horizAlign = "right"
+				translation="[1300, 218]"/>
+
+			<poster
+		    	id="playerAvatar"
+  				width="250"
+  				height="250"
+  				opacity = "0.0"
+  				translation = "[140 ,251]"/>
+  		</Group>
+  		
+  		  <ParallelAnimation   id = "revealParallelAnimation" 
+  		  	delay = "3"
+  		  	control = "start"> 
+  			<Animation
+				id="fade in"
+            	duration="0.95"
+            	easeFunction="linear">
+            <FloatFieldInterpolator
+            	id="hideInterPol"
+                key="[0.0, 1.0]"
+                keyValue="[ 0, 1]"
+                fieldToInterp="playerAvatar.opacity" />
+			</Animation>
+  		 <Animation
+            id="flyUp"
+            duration="0.680"
+            control="stop"
+            easeFunction="linear">
+            <Vector2DFieldInterpolator
+                key="[0.0, 1.0]"
+                keyValue="[ [140.0, 750.0], [140.0, 218.0]]"
+                fieldToInterp="playerAvatar.translation"   />
+			</Animation>
+			
+  		 <Animation
+            id="flyIn"
+            duration="0.680"
+            control="stop"
+            easeFunction="linear">
+            <Vector2DFieldInterpolator
+                key="[0.0, 1.0]"
+                keyValue="[ [800.0, 218.0], [440.0, 218.0]]"
+                fieldToInterp="playerName.translation"   />
+			</Animation>
+			 </ParallelAnimation>
+	</children>
+</component>

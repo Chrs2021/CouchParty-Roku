@@ -2,6 +2,7 @@
 <component name="Lobby" extends="Group" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://devtools.web.roku.com/schema/RokuSceneGraph.xsd">
 	<interface>
 		<field id="ChosenWord" type="string" onChange="wordchosen"/>
+		<field id="GameStage" type="integer" />
 	</interface>
 	<script type="text/brightscript" uri="pkg:/components/screens/Lobby/Lobby.brs" />
 	
@@ -21,14 +22,15 @@
  				translation="[320,200]"
  				wrap = "true"
  				width = "640"
-             	horizAlign = "center" 
+ 				vertAlign = "center"
+             	horizAlign = "center"
  			/>
         	<Poster
         		id="qrCode"
-        		translation="[550,200]"
+        		translation="[530,160]"
         		loadSync="true"
-        		width="175"
-            	height="175" 
+        		width="225"
+            	height="225" 
         	/>
         	<Label
         		id = "timerLabel"
@@ -64,6 +66,7 @@
             
             > <!-- -> Overhang -->
            <Poster
+           		id =  "hangOver"
                 translation="[79, 36]"
                 uri="pkg:/images/overhangBLogo.png"
                 width="430"
@@ -71,7 +74,7 @@
         </Group> <!-- <- Overhang -->
            <Animation
             id="bgAnimation"
-            duration="0.35"
+            duration="0.750"
             repeat="false"
             control="start"
             easeFunction="linear">
@@ -81,6 +84,18 @@
                 fieldToInterp="background.opacity"   />
 			</Animation>
 			
+		 <Animation
+            id="timerShrinkScaleAnim"
+            duration="0.400"
+            repeat="false"
+            control="stop"
+            easeFunction="linear">
+            <Vector2DFieldInterpolator
+                key="[0.0, 1.0]"
+                keyValue="[ [1.0, 1.0], [0.0, 0.0]]"
+                fieldToInterp="StatusText.scale"   />
+			</Animation>
+						
 			<SequentialAnimation id = "flipSeqAnim" >
 			<Animation
 				id="hideAnim"
@@ -102,6 +117,12 @@
                 	/>
 			</Animation>
 			</SequentialAnimation>
+			<SoundEffect uri="pkg:/sounds/tick.wav" id="se" control="stop"/>
+				<SoundEffect
+			id = "arrivedSFX"
+			uri="pkg:/sounds/enter.wav"
+		
+		/>
 			<Timer id="countDownTimer"
 				duration = "1"
 				repeat = "true"

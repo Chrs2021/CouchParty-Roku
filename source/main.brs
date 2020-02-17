@@ -1,4 +1,7 @@
 ' ********** Copyright 2016 Roku Corp.  All Rights Reserved. ********** 
+ sub RunScreenSaver()
+  
+ end sub
  
  sub RunUserInterface()
     screen = CreateObject("roSGScreen")
@@ -7,18 +10,19 @@
     screen.SetMessagePort(port)
     screen.Show()
     
-   ' oneRow = GetApiArray()
+
     list = [
         {
             Title:"Start Game"
         }
         {
-            Title:"Set Timer"
+            Title:"Options"
         }
         {
             Title:"About"
         }
     ]
+    
    scene.gridContent = ParseXMLContent(list)
 
     while true
@@ -45,47 +49,6 @@ Function ParseXMLContent(list As Object)
     end for
 
     return RowItems
-End Function
-
-
-Function GetApiArray()
-    url = CreateObject("roUrlTransfer")
-    url.SetUrl("http://api.delvenetworks.com/rest/organizations/59021fabe3b645968e382ac726cd6c7b/channels/1cfd09ab38e54f48be8498e0249f5c83/media.rss")
-    rsp = url.GetToString()
-
-    responseXML = ParseXML(rsp)
-    responseXML = responseXML.GetChildElements()
-    responseArray = responseXML.GetChildElements()
-
-    result = []
-
-    for each xmlItem in responseArray
-        if xmlItem.getName() = "item"
-            itemAA = xmlItem.GetChildElements()
-            if itemAA <> invalid
-                item = {}
-                for each xmlItem in itemAA
-                    item[xmlItem.getName()] = xmlItem.getText()
-                    if xmlItem.getName() = "media:content"
-                        item.stream = {url : xmlItem.url}
-                        item.url = xmlItem.getAttributes().url
-                        item.streamFormat = "mp4"
-                        
-                        mediaContent = xmlItem.GetChildElements()
-                        for each mediaContentItem in mediaContent
-                            if mediaContentItem.getName() = "media:thumbnail"
-                                item.HDPosterUrl = mediaContentItem.getattributes().url
-                                item.hdBackgroundImageUrl = mediaContentItem.getattributes().url
-                            end if
-                        end for
-                    end if
-                end for
-                result.push(item)
-            end if
-        end if
-    end for
-
-    return result
 End Function
 
 

@@ -10,9 +10,22 @@ Function Init()
     'main grid screen node
     m.TitleText = m.top.findNode("titleScreen")
     m.GridScreen = m.top.findNode("GridScreen")
-    
+    audioInit()
     ShowScreen(m.GridScreen)
 End Function 
+
+function audioInit() 
+'experimental audio stuff
+      audio = createObject("roSGNode", "Audio")
+      audio.id = "bgAudio"
+      audiocontent = createObject("RoSGNode", "ContentNode")
+      audiocontent.url = "http://labs.snapvids.com/gaming/menu_music.m4a"
+      audio.content = audiocontent
+      m.top.appendChild(audio)
+      audio.control = " "
+      audio.loop = "true"
+      m.top.setFocus(true)
+end function
 
 ' Row item selected handler
 Sub PlayVideoFromGrid()
@@ -24,6 +37,18 @@ Sub PlayVideoFromGrid()
      m.lobby.id="Lobby"
      m.top.appendChild(m.lobby)
      ShowScreen(m.lobby)
+     audio = m.top.findNode("bgAudio")
+   '  audio.control = "play"
+   else if selectedItem = 1 
+        playeritem       =  createObject("RoSGNode","ContentNode")
+        playeritem.addField("isKing", "boolean", true)
+        playeritem.Title = "That Guy"
+        playeritem.id = "wooter"
+       
+        m.resultsScreen = CreateObject("roSGNode", "ResultsScene")
+        m.resultsScreen.itemContent = playeritem
+        m.Top.appendChild(m.resultsScreen)
+      ShowScreen(m.resultsScreen)
     end if
 End Sub
 
@@ -70,6 +95,9 @@ Sub HideScreen(node as Object)
         last = m.screenStack.pop()
         last.visible = false
         if last.id = "Lobby" 
+            audio = m.top.findNode("bgAudio")
+            audio.control = "stop"
+            audio.control = "prebuffer"
             m.TitleText.visible = true
         end if
         prev = m.screenStack.peek()
